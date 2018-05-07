@@ -1,0 +1,24 @@
+Configuring graphql-api-0.3.0...
+Preprocessing library for graphql-api-0.3.0..
+Building library for graphql-api-0.3.0..
+[ 1 of 19] Compiling GraphQL.Internal.Arbitrary ( src/GraphQL/Internal/Arbitrary.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/GraphQL/Internal/Arbitrary.o )
+[ 2 of 19] Compiling GraphQL.Internal.OrderedMap ( src/GraphQL/Internal/OrderedMap.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/GraphQL/Internal/OrderedMap.o )
+[ 3 of 19] Compiling GraphQL.Internal.Syntax.Tokens ( src/GraphQL/Internal/Syntax/Tokens.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/GraphQL/Internal/Syntax/Tokens.o )
+[ 4 of 19] Compiling GraphQL.Internal.Name ( src/GraphQL/Internal/Name.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/GraphQL/Internal/Name.o )
+[ 5 of 19] Compiling GraphQL.Internal.Syntax.AST ( src/GraphQL/Internal/Syntax/AST.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/GraphQL/Internal/Syntax/AST.o )
+[ 6 of 19] Compiling GraphQL.Internal.Syntax.Parser ( src/GraphQL/Internal/Syntax/Parser.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/GraphQL/Internal/Syntax/Parser.o )
+[ 7 of 19] Compiling GraphQL.Internal.Syntax.Encoder ( src/GraphQL/Internal/Syntax/Encoder.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/GraphQL/Internal/Syntax/Encoder.o )
+[ 8 of 19] Compiling GraphQL.Value    ( src/GraphQL/Value.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/GraphQL/Value.o )
+[ 9 of 19] Compiling GraphQL.Internal.Schema ( src/GraphQL/Internal/Schema.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/GraphQL/Internal/Schema.o )
+[10 of 19] Compiling GraphQL.Value.ToValue ( src/GraphQL/Value/ToValue.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/GraphQL/Value/ToValue.o )
+[11 of 19] Compiling GraphQL.Value.FromValue ( src/GraphQL/Value/FromValue.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/GraphQL/Value/FromValue.o )
+[12 of 19] Compiling GraphQL.Internal.Output ( src/GraphQL/Internal/Output.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/GraphQL/Internal/Output.o )
+[13 of 19] Compiling GraphQL.Internal.Validation ( src/GraphQL/Internal/Validation.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/GraphQL/Internal/Validation.o )
+[14 of 19] Compiling GraphQL.Internal.Execution ( src/GraphQL/Internal/Execution.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/GraphQL/Internal/Execution.o )
+[15 of 19] Compiling GraphQL.API.Enum ( src/GraphQL/API/Enum.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/GraphQL/API/Enum.o )
+[16 of 19] Compiling GraphQL.API      ( src/GraphQL/API.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/GraphQL/API.o )
+[17 of 19] Compiling GraphQL.Resolver ( src/GraphQL/Resolver.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/GraphQL/Resolver.o )
+[18 of 19] Compiling GraphQL          ( src/GraphQL.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/GraphQL.o )
+[19 of 19] Compiling Paths_graphql_api ( .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/autogen/Paths_graphql_api.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/Paths_graphql_api.o )
+Installing library in /Users/theophilebatoz/Documents/code/perso/haskell-api-test/.stack-work/install/x86_64-osx/lts-11.7/8.2.2/lib/x86_64-osx-ghc-8.2.2/graphql-api-0.3.0-8qZSkZGBL5k6MuO6Ytv8Q9
+Registering library for graphql-api-0.3.0..
