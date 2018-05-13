@@ -1,0 +1,15 @@
+version: '2'
+volumes:
+  pgdata:
+services:
+  postgres:
+    image: mdillon/postgis:10
+    command: postgres -c logging_collector=off -c log_statement=all -c log_min_duration_statement=0
+    expose:
+      - '5432'
+    ports:
+      - '5432:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+
