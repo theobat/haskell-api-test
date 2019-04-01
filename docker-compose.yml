@@ -12,4 +12,12 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
 
-
+  test:
+    build:
+      context: '.'
+      dockerfile: dockerfiles/Dockerfile
+      args:
+        UID: "$UID"
+    image: test_haskell_stack
+    volumes:
+      - .:/app/user/:delegated

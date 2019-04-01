@@ -32,8 +32,8 @@ instance Table UserT where
     primaryKey = UserId . _userEmail
 instance Beamable (PrimaryKey UserT)
 
-
-data ShoppingCartDb f = ShoppingCartDb
+-- | A freaking shopping cart DB
+newtype ShoppingCartDb f = ShoppingCartDb
                       { _shoppingCartUsers :: f (TableEntity UserT) }
                         deriving Generic
 

@@ -47,9 +47,18 @@ dependencies:
 - postgresql-simple
 - aeson 
 - text
+- websockets
+- network
+- transformers
+- mtl
+- amqp
+- bytestring
+- syb
 
 library:
-  source-dirs: src
+  source-dirs: 
+  - src
+  - ../test-other-tree
 
 executables:
   helloworld-exe:
