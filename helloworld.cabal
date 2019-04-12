@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: beabecddfe70d55b7a3c61d83aabd28b631487fcda0b639fc1ef054336f5f976
+-- hash: 2634fa6eb6ffd2670590aaa825df62dbf2e2c98855cf2ce20f4f1c860592a009
 
 name:           helloworld
 version:        0.1.0.0
@@ -28,7 +28,6 @@ source-repository head
 library
   hs-source-dirs:
       src
-      ../test-other-tree
   default-extensions: OverloadedStrings RecordWildCards TypeFamilies TypeApplications DataKinds DeriveGeneric GADTs FlexibleContexts FlexibleInstances StandaloneDeriving TypeSynonymInstances PartialTypeSignatures
   ghc-options: -Wall -fno-warn-redundant-constraints
   build-depends:
@@ -45,6 +44,7 @@ library
     , postgresql-simple
     , protolude
     , raw-strings-qq
+    , scotty
     , syb
     , text
     , transformers
@@ -53,8 +53,8 @@ library
       Beamtest
       Graphqltest
       RabbitMQTestServer
+      WebServer
       Websocket
-      Ok
   other-modules:
       Paths_helloworld
   default-language: Haskell2010
@@ -80,6 +80,7 @@ executable helloworld-exe
     , postgresql-simple
     , protolude
     , raw-strings-qq
+    , scotty
     , syb
     , text
     , transformers
@@ -110,6 +111,7 @@ test-suite helloworld-test
     , postgresql-simple
     , protolude
     , raw-strings-qq
+    , scotty
     , syb
     , text
     , transformers

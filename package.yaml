@@ -54,11 +54,11 @@ dependencies:
 - graphql-meta
 - protolude
 - raw-strings-qq
+- scotty
 
 library:
   source-dirs: 
   - src
-  - ../test-other-tree
 
 executables:
   helloworld-exe:
