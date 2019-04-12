@@ -1,8 +1,8 @@
 module Main (main) where
-  import Protolude
-  import Beamtest
-  import Websocket
-  import qualified RabbitMQTestServer as AMQP
+  -- import Protolude
+  -- import Beamtest
+  -- import Websocket
+  -- import qualified RabbitMQTestServer as AMQP
   import qualified Graphqltest as GQL
 
   -- main :: IO ()

@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 0f20f6ff3245ec4be5e0336c4b82ca863a868ef9949041040567a05105e52270
+-- hash: beabecddfe70d55b7a3c61d83aabd28b631487fcda0b639fc1ef054336f5f976
 
 name:           helloworld
 version:        0.1.0.0
@@ -29,7 +29,7 @@ library
   hs-source-dirs:
       src
       ../test-other-tree
-  default-extensions: NoImplicitPrelude OverloadedStrings RecordWildCards TypeFamilies TypeApplications DataKinds DeriveGeneric GADTs FlexibleContexts FlexibleInstances StandaloneDeriving TypeSynonymInstances PartialTypeSignatures
+  default-extensions: OverloadedStrings RecordWildCards TypeFamilies TypeApplications DataKinds DeriveGeneric GADTs FlexibleContexts FlexibleInstances StandaloneDeriving TypeSynonymInstances PartialTypeSignatures
   ghc-options: -Wall -fno-warn-redundant-constraints
   build-depends:
       aeson
@@ -39,11 +39,12 @@ library
     , beam-migrate
     , beam-postgres
     , bytestring
-    , graphql-api ==0.3.0
+    , graphql-meta
     , mtl
     , network
     , postgresql-simple
-    , protolude ==0.2.2
+    , protolude
+    , raw-strings-qq
     , syb
     , text
     , transformers
@@ -62,7 +63,7 @@ executable helloworld-exe
   main-is: Main.hs
   hs-source-dirs:
       app
-  default-extensions: NoImplicitPrelude OverloadedStrings RecordWildCards TypeFamilies TypeApplications DataKinds DeriveGeneric GADTs FlexibleContexts FlexibleInstances StandaloneDeriving TypeSynonymInstances PartialTypeSignatures
+  default-extensions: OverloadedStrings RecordWildCards TypeFamilies TypeApplications DataKinds DeriveGeneric GADTs FlexibleContexts FlexibleInstances StandaloneDeriving TypeSynonymInstances PartialTypeSignatures
   ghc-options: -Wall -fno-warn-redundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       aeson
@@ -72,12 +73,13 @@ executable helloworld-exe
     , beam-migrate
     , beam-postgres
     , bytestring
-    , graphql-api ==0.3.0
+    , graphql-meta
     , helloworld
     , mtl
     , network
     , postgresql-simple
-    , protolude ==0.2.2
+    , protolude
+    , raw-strings-qq
     , syb
     , text
     , transformers
@@ -91,7 +93,7 @@ test-suite helloworld-test
   main-is: Spec.hs
   hs-source-dirs:
       test
-  default-extensions: NoImplicitPrelude OverloadedStrings RecordWildCards TypeFamilies TypeApplications DataKinds DeriveGeneric GADTs FlexibleContexts FlexibleInstances StandaloneDeriving TypeSynonymInstances PartialTypeSignatures
+  default-extensions: OverloadedStrings RecordWildCards TypeFamilies TypeApplications DataKinds DeriveGeneric GADTs FlexibleContexts FlexibleInstances StandaloneDeriving TypeSynonymInstances PartialTypeSignatures
   ghc-options: -Wall -fno-warn-redundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       aeson
@@ -101,12 +103,13 @@ test-suite helloworld-test
     , beam-migrate
     , beam-postgres
     , bytestring
-    , graphql-api ==0.3.0
+    , graphql-meta
     , helloworld
     , mtl
     , network
     , postgresql-simple
-    , protolude ==0.2.2
+    , protolude
+    , raw-strings-qq
     , syb
     , text
     , transformers

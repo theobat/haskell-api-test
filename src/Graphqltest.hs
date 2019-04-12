@@ -1,3 +1,4 @@
+{-# LANGUAGE NoImplicitPrelude  #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DeriveGeneric #-}
@@ -10,6 +11,7 @@
 {-# LANGUAGE PolyKinds #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE QuasiQuotes #-}
 
 module Graphqltest where
 
@@ -18,13 +20,14 @@ import Protolude hiding (Enum)
 import qualified Data.Aeson as Aeson
 
 import           Data.Data
-import           Data.Int
-import           Data.Proxy
 import           GHC.Generics
 import qualified Data.ByteString               as B
 import           Data.Generics.Twins            ( gzipWithT
                                                 )
 import qualified Data.Generics as G
+import           GraphQL.Parser
+import           GraphQL.AST
+import           Text.RawString.QQ
 
 -- import GraphQL.Value (FromValue, toValue)
 
@@ -57,62 +60,98 @@ import qualified Data.Generics as G
 --   putStrLn $ Aeson.encode $ toValue response'
 
 main :: IO ()
-main = do
-    print $ selectors (Proxy :: Proxy (Rep AnotherTest))
+main = print $ parseDocument [r|
+  fragment bank on BankForm {
+    formUrl
+    formFields {
+      version
+      TPE
+      date
+      montant
+      reference
+      MAC
+      url_retour
+      url_retour_ok
+      url_retour_err
+      lgue
+      societe
+      texte__libre
+      mail
+    }
+  }
+  query getBankData_Query { getBankData (id: $id) { ...bank } }
+|]
+-- main = print $ selectors (Proxy :: Proxy (Rep AnotherTest))
     
-
-
-data QuoteRecord = QuoteRecord  { symbol              :: Text
-                                , open                :: Text
-                                , high                :: Text
-                                , low                 :: Text
-                                , price               :: Text
-                                , volume              :: Text
-                                , latestTradingDay    :: Text
-                                , previousClose       :: Text
-                                , change              :: Text
-                                , changePercent       :: Text
-                                } deriving (Eq, Show, Generic)
 
 data NoArg = NoArg
 data GQLAnswer a = GQLAnswer a
 data SchemaT a = SchemaT a
-data SchemaQuery a = SchemaQuery a
-data GQLField a b = GQLFieldC a
-data Queried a = Asked a | Unasked
+data GQLQuery a = GQLQuery a
+data GQLField returnType argumentType = GQLFieldC returnType
+data GQLFieldType = GQLScalar | GQLNonScalar
+data Queried argument selection = Asked argument | AskedSelection argument selection | Unasked
 
 type family GQLType a
-type instance GQLType (Identity (GQLField a b) ) = a
-type instance GQLType (SchemaT (GQLField a b) ) = Maybe (b -> a)
-type instance GQLType (SchemaQuery (GQLField a b) ) = Queried (Maybe (b -> a))
-type instance GQLType (GQLAnswer (GQLField a b) ) = Queried a
+type instance GQLType (Identity (GQLField returnType argumentType) ) = returnType
+type instance GQLType (SchemaT (GQLField returnType argumentType) ) = Maybe (argumentType -> returnType)
+type instance GQLType (GQLQuery (GQLField returnType argumentType) ) = Queried argumentType argumentType
+type instance GQLType (GQLAnswer (GQLField returnType argumentType) ) = Queried returnType argumentType
 
-data Test a = Test  { id :: GQLType (a (GQLField Text NoArg) )
-                    , field_a :: GQLType (a (GQLField Text NoArg))
-                    , field_b :: GQLType (a (GQLField Integer NoArg))
+data Test a = Test  { id :: GQLType (a (GQLField Text ()) )
+, more :: GQLType (a (GQLField (Maybe (More a)) ()))
+, field_a :: GQLType (a (GQLField Text ()))
+} deriving (Generic, Typeable)
+
+data More a = More  { didi :: GQLType (a (GQLField Text ()) )
+                    , momo :: GQLType (a (GQLField Text ()))
+                    , yea :: GQLType (a (GQLField Integer ()))
 } deriving (Generic, Typeable)
 
 type AnotherTest = Test Identity
+type MoreCore = More Identity
 
+deriving instance Eq MoreCore
 deriving instance Eq AnotherTest
 deriving instance Typeable AnotherTest
-deriving instance G.Data AnotherTest
+-- deriving instance G.Data AnotherTest
 
 type TestSchema = Test SchemaT
-type TestQuery = Test SchemaQuery
+type TestQuery = Test GQLQuery
 type TestAnswer = Test GQLAnswer
 
-olol = Test { id = "okok", field_a = "okoko", field_b = 12 } :: AnotherTest
-testSchema = Test { id = Just (\a -> "ok"::Text), field_a = Nothing, field_b = Nothing } :: TestSchema
-more =
-    Test { id = Asked "okok", field_a = Unasked, field_b = Asked 12 } :: TestAnswer
+type MoreSchema = More SchemaT
+type MoreQuery = More GQLQuery
+type MoreAnswer = More GQLAnswer
 
-mergeInt :: (G.Data AnotherTest, G.Data b) => AnotherTest -> b -> b
-mergeInt = G.mkQ (G.mkT (identity :: Integer -> Integer))
-                 (\a -> G.mkT (\b -> a + b :: Integer))
+olol = Test { id = "okok", field_a = "okoko", more = Nothing } :: AnotherTest
+
+oyeah :: AnotherTest
+oyeah = Test "okok" Nothing "koko" 
+
+ouuk = [SelectionField (Field Nothing (Name "TPE") [] [] [])]
+
+testResolve
+  :: [Selection] -> TestSchema -> AnotherTest
+testResolve selectionList schema =
+  Test { 
+    id = "ok", 
+    field_a = "okoko", 
+    more = Nothing 
+  }
+
+
+
+testSchema =
+  Test { id = Just (\_ -> "ok" :: Text), field_a = Nothing, more = Nothing } :: TestSchema
+omomomo =
+    Test { id = Asked "okok", field_a = Unasked, more = Asked Nothing } :: TestAnswer
+
+testQuery =
+  Test { id = Asked (), field_a = Unasked, more = Asked () } :: TestQuery
 
 resolveTest :: TestQuery -> TestAnswer
-resolveTest schema = more
+resolveTest schema = omomomo
 
 class Selectors rep where
   selectors :: Proxy rep -> [([Char], TypeRep)]
@@ -133,7 +172,7 @@ instance (Selectors a, Selectors b) => Selectors (a :*: b) where
 instance Selectors U1 where
   selectors _ = []
 
--- data Query a = Requested a | Unrequested
+-- data GQLQuery a = Requested a | Unrequested
 
 -- data IsRequested args realType = Requested args realType | Unrequested
 -- tot = Requested Nothing ("ok"::Text)

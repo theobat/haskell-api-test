@@ -23,7 +23,6 @@ ghc-options:
   - -Wall -fno-warn-redundant-constraints
 
 default-extensions:
-  - NoImplicitPrelude
   - OverloadedStrings
   - RecordWildCards
   - TypeFamilies
@@ -39,8 +38,6 @@ default-extensions:
 
 dependencies:
 - base >= 4.7 && < 5
-- graphql-api == 0.3.0
-- protolude == 0.2.2
 - beam-core
 - beam-migrate
 - beam-postgres
@@ -54,6 +51,9 @@ dependencies:
 - amqp
 - bytestring
 - syb
+- graphql-meta
+- protolude
+- raw-strings-qq
 
 library:
   source-dirs: 
