@@ -97,6 +97,7 @@ type instance GQLType (SchemaT (GQLField returnType argumentType) ) = Maybe (arg
 type instance GQLType (GQLQuery (GQLField returnType argumentType) ) = Queried argumentType argumentType
 type instance GQLType (GQLAnswer (GQLField returnType argumentType) ) = Queried returnType argumentType
 
+-- | OKOKOKOK
 data Test a = Test  { id :: GQLType (a (GQLField Text ()) )
 , more :: GQLType (a (GQLField (Maybe (More a)) ()))
 , field_a :: GQLType (a (GQLField Text ()))

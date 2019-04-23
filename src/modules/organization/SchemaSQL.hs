@@ -14,9 +14,10 @@ import           Data.Text                  (Text)
 import           Database.Beam              as B
 import           Database.Beam.Postgres
 import           Protolude
+import           Data.UUID                   ( UUID )
 
 data OrganizationT f = Organization
-  { id    :: Columnar f Text
+  { id    :: Columnar f UUID
   , name :: Columnar f Text
   } deriving (Generic)
 
@@ -30,7 +31,12 @@ deriving instance Eq OrganizationKey
 instance Beamable OrganizationT
 
 instance Table OrganizationT where
-  data PrimaryKey OrganizationT f = OrganizationId (Columnar f Text) deriving (Generic)
+  data PrimaryKey OrganizationT f = OrganizationId (Columnar f UUID) deriving (Generic)
   primaryKey = OrganizationId . id
 
 instance Beamable (PrimaryKey OrganizationT)
+
+-- type OrganizationTable = DatabaseEntity
+--        Postgres
+--        BetonDirectDb
+--        (TableEntity OrganizationT)

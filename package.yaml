@@ -55,10 +55,14 @@ dependencies:
 - protolude
 - raw-strings-qq
 - scotty
+- uuid
 
 library:
   source-dirs: 
   - src
+  other-modules:
+  - Modules.Organization.SchemaSQL
+  - Modules.Organization.Types.OrganizationCore
 
 executables:
   helloworld-exe:

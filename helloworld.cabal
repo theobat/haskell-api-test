@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 2634fa6eb6ffd2670590aaa825df62dbf2e2c98855cf2ce20f4f1c860592a009
+-- hash: 574a077287f7eff6f678c7c2877734e810ef13030ebf45d174aaf18279e68a87
 
 name:           helloworld
 version:        0.1.0.0
@@ -48,15 +48,19 @@ library
     , syb
     , text
     , transformers
+    , uuid
     , websockets
   exposed-modules:
       Beamtest
       Graphqltest
       RabbitMQTestServer
+      RootSQL
+      Utils
       WebServer
       Websocket
   other-modules:
-      Paths_helloworld
+      Modules.Organization.SchemaSQL
+      Modules.Organization.Types.OrganizationCore
   default-language: Haskell2010
 
 executable helloworld-exe
@@ -84,6 +88,7 @@ executable helloworld-exe
     , syb
     , text
     , transformers
+    , uuid
     , websockets
   other-modules:
       Paths_helloworld
@@ -115,6 +120,7 @@ test-suite helloworld-test
     , syb
     , text
     , transformers
+    , uuid
     , websockets
   other-modules:
       Paths_helloworld

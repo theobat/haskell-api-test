@@ -12,20 +12,28 @@
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE QuasiQuotes #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
 
 module Utils where
 
 import Protolude hiding (Enum)
 
 import qualified Data.Aeson as Aeson
+import           GHC.Records                    ( HasField(..) )
 
 import           Data.Data
 import           GHC.Generics
 
 main :: IO ()
 main = print $ selectors (Proxy :: Proxy (Rep Test))
-
+  
 data Test = Test  { id :: Text } deriving (Generic, Typeable)
+
+-- oops :: Text
+-- oops = getField @"id" Test "okok" :: Text
+
+-- instance HasField s r v => HasField s r v where
+--   getField (Test r) = getField @s r
 
 class Selectors rep where
   selectors :: Proxy rep -> [([Char], TypeRep)]
