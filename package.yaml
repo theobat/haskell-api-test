@@ -56,14 +56,17 @@ dependencies:
 - raw-strings-qq
 - scotty
 - uuid
+- hasql
+- contravariant
+- retry
 
 library:
   source-dirs: 
   - src
   other-modules:
   - Modules.Organization.SchemaSQL
-  - Modules.Organization.Types.OrganizationCore
-
+  - Modules.Organization.Schema
+  
 executables:
   helloworld-exe:
     main:                Main.hs

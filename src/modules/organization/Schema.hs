@@ -15,7 +15,7 @@
 {-# LANGUAGE MultiParamTypeClasses #-}
 
 module Modules.Organization.Schema  where
-  
+
 import Protolude hiding (Enum)
 
 import qualified Data.Aeson as Aeson
@@ -23,6 +23,7 @@ import qualified Data.Aeson as Aeson
 import qualified Modules.Organization.SchemaSQL as SQL
 import qualified Utils as SQLUtils
 import qualified RootSQL as RootSQL
+import qualified GQLSchema as GQLSchema
 
 data HaskellType = HaskellType
 data GQLSchemaType = GQLSchemaType
@@ -31,7 +32,7 @@ data NoArgument = NoArgument
 
 type family GType a returnType argumentType (monadType:: * -> *)
 type instance GType HaskellType returnType argumentType monadType = returnType
-type instance GType RootSQL.GQLResolver returnType argumentType monadType = argumentType -> monadType returnType
+type instance GType GQLSchema.GQLResolver returnType argumentType monadType = argumentType -> monadType returnType
 
 data OrganizationCore a = OrganizationCore {
   id :: GType a Text NoArgument Identity-- initialValue ? monad ? SQLType
@@ -39,14 +40,15 @@ data OrganizationCore a = OrganizationCore {
 } deriving (Generic, Typeable)
 
 type Organization = OrganizationCore HaskellType
-type OrganizationResolver = OrganizationCore RootSQL.GQLResolver
+type OrganizationResolver = OrganizationCore GQLSchema.GQLResolver
 
 
-organizationSchema :: RootSQL.GQLSchemaObject SQL.OrganizationT OrganizationCore
-organizationSchema = RootSQL.GQLSchemaObject {
-    RootSQL.sqlTable = (RootSQL.organization RootSQL.betonDirectDb)
-  , RootSQL.__typename = "Organization"
-  , RootSQL.resolver = hahaha
+organizationSchema :: GQLSchema.Object SQL.OrganizationT OrganizationCore
+organizationSchema = GQLSchema.Object {
+    GQLSchema.sqlTable = RootSQL.organization RootSQL.betonDirectDb
+  , GQLSchema.__typename = "Organization"
+  , GQLSchema.resolver = hahaha
+  , GQLSchema.sqlResolver = undefined
 }
 
 
@@ -132,49 +134,48 @@ hahaha = OrganizationCore {
 
   -- data IsRequested args realType = Requested args realType | Unrequested
   -- tot = Requested Nothing ("ok"::Text)
-  
+
   -- data What a = Identity a
   -- -- data Requested a = Actual a | Unrequested
   -- data Test a b c = Test  { id :: a Text
   --                     , field_a :: b Text
   --                     , field_b :: c Integer
   -- } deriving (Generic)
-  
+
   -- type CoreTest = Test Id Id Id
-  
+
   -- ol = Test { id = "ok" :: Text } :: CoreTest
-  
+
   -- type TestSchema = Test Query
   -- type TestMain = Test Identity
   -- type TestQuery = Test (Query Identity)
-  
+
   -- type QueryDocPart = Test Query Identity
-  
+
   -- testor :: Text -> Text -> QueryDocPart
   -- testor a b = Test { id      = Requested
   --                     , field_a = Requested
   --                     }
-  
+
   -- okok = Test { id      = Requested (decode "{}")
   --             , field_a = Requested
   --             , field_b = Unrequested
   --           }
-  
+
   -- testfunc :: Text -> Text -> TestSchema
   -- testfunc a b = Test { id      = Requested ("ok" :: Text)
   --                       , field_a = Requested ("yea" :: Text)
   --                       , field_b = Requested 1234
   --                     }
-  
+
   -- okok = Test { id      = Requested _
   --                 , field_a = Requested _
   --                 , field_b = Requested _
   --                 }
-  
+
   -- test = Test Requested ((Actual ("okok" :: Text)) (Actual ("kkkk" :: Text)))
   -- test = Test Requested { id      = Actual ("ok" :: Text)
   --                       , field_a = Actual ("yea" :: Text)
   --                       }
-  
-  
-  
+
+

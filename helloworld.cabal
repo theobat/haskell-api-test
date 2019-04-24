@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 574a077287f7eff6f678c7c2877734e810ef13030ebf45d174aaf18279e68a87
+-- hash: c28ffd914fdfd68d7e2c20a75f20f3866bd9714ec2e9c8cf49d1c56ae0880738
 
 name:           helloworld
 version:        0.1.0.0
@@ -38,12 +38,15 @@ library
     , beam-migrate
     , beam-postgres
     , bytestring
+    , contravariant
     , graphql-meta
+    , hasql
     , mtl
     , network
     , postgresql-simple
     , protolude
     , raw-strings-qq
+    , retry
     , scotty
     , syb
     , text
@@ -52,7 +55,9 @@ library
     , websockets
   exposed-modules:
       Beamtest
+      GQLSchema
       Graphqltest
+      NaiveHasqlTest
       RabbitMQTestServer
       RootSQL
       Utils
@@ -60,7 +65,7 @@ library
       Websocket
   other-modules:
       Modules.Organization.SchemaSQL
-      Modules.Organization.Types.OrganizationCore
+      Modules.Organization.Schema
   default-language: Haskell2010
 
 executable helloworld-exe
@@ -77,13 +82,16 @@ executable helloworld-exe
     , beam-migrate
     , beam-postgres
     , bytestring
+    , contravariant
     , graphql-meta
+    , hasql
     , helloworld
     , mtl
     , network
     , postgresql-simple
     , protolude
     , raw-strings-qq
+    , retry
     , scotty
     , syb
     , text
@@ -109,13 +117,16 @@ test-suite helloworld-test
     , beam-migrate
     , beam-postgres
     , bytestring
+    , contravariant
     , graphql-meta
+    , hasql
     , helloworld
     , mtl
     , network
     , postgresql-simple
     , protolude
     , raw-strings-qq
+    , retry
     , scotty
     , syb
     , text

@@ -17,6 +17,7 @@ module RootSQL
   )
 where
 
+import           Data.UUID
 import           Data.Text                  (Text)
 import           Database.Beam              as B
 import           Database.Beam.Postgres
@@ -33,17 +34,21 @@ betonDirectDb = defaultDbSettings
 customConnect :: IO Connection
 customConnect = connect defaultConnectInfo { connectDatabase = "beton_direct_web" }
 
-ok = runBeamPostgresDebug
-
 boundedQuery :: Q PgSelectSyntax BetonDirectDb _ _
 boundedQuery = limit_ 1 $ offset_ 1 $ all_ (organization betonDirectDb)
 
+data TESTRecord = TESTRecord {
+  id :: UUID
+  , name :: Text
+} deriving (Generic, Show)
+
+-- | A query to test
 testQuery :: IO ()
 testQuery = do 
     conn <- runBeamPostgresDebug putStrLn <$> customConnect
     ok <- conn $ runSelectReturningList $ select $ do 
       organizationList <- boundedQuery
-      pure (OrganizationSQL.id organizationList)
+      pure $ (OrganizationSQL.id organizationList)
     print ok
     -- orgs <- runSelectReturningList $ select boundedQuery
     -- mapM_ (liftIO . putStrLn . show) orgs
