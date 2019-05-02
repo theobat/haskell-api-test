@@ -34,3 +34,8 @@ data OrganizationQuery = OrganizationQuery {
 } deriving (Generic, Typeable)
 
 
+class Resolver a where
+    resolve :: Text -> a -> Text
+
+instance Resolver OrganizationQuery where
+    resolve a b = a

@@ -16,6 +16,7 @@ import  qualified Data.Aeson as JSON
 import qualified Modules.Organization.Schema as OrganizationSchema
 import qualified NaiveHasqlTest as NaiveHasqlTest
 import Data.Maybe
+
 import qualified Control.Retry as Retry
 import NaiveHasqlTest (getConnection, processQueryId)
 import Data.UUID
@@ -33,12 +34,16 @@ main = do
       first <- liftIO $ case res of
         Right query -> do 
           test <- query
-          pure $ case test of
-            Right value ->  value
-            Left error ->  "an error occured in SQL query"
+          case test of
+            Right value -> pure value
+            Left error -> do
+              _ <- print error
+              pure "an error occured in SQL query "
         Left error -> pure "An error occured in DB connection"
       Scotty.json $ first
 
 
 okok :: Text -> OrganizationSchema.Organization
 okok a = OrganizationSchema.OrganizationCore { id = a }
+
+
