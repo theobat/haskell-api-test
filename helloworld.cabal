@@ -1,10 +1,10 @@
 cabal-version: 1.12
 
--- This file has been generated from package.yaml by hpack version 0.31.1.
+-- This file has been generated from package.yaml by hpack version 0.31.2.
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: c28ffd914fdfd68d7e2c20a75f20f3866bd9714ec2e9c8cf49d1c56ae0880738
+-- hash: 877b4ec5ce19e442acdd20b4110ef9200d33894ce71033597bf949031795eb8b
 
 name:           helloworld
 version:        0.1.0.0
@@ -34,38 +34,29 @@ library
       aeson
     , amqp
     , base >=4.7 && <5
-    , beam-core
-    , beam-migrate
-    , beam-postgres
     , bytestring
     , contravariant
-    , graphql-meta
     , hasql
+    , morpheus-graphql
     , mtl
     , network
-    , postgresql-simple
     , protolude
     , raw-strings-qq
     , retry
     , scotty
-    , syb
     , text
     , transformers
     , uuid
+    , wai
+    , wai-websockets
+    , warp
     , websockets
   exposed-modules:
-      Beamtest
-      GQLSchema
-      Graphqltest
-      NaiveHasqlTest
-      RabbitMQTestServer
-      RootSQL
-      Utils
-      WebServer
+      ScottyWrapper
+      TestGraphQL
       Websocket
   other-modules:
-      Modules.Organization.SchemaSQL
-      Modules.Organization.Schema
+      Paths_helloworld
   default-language: Haskell2010
 
 executable helloworld-exe
@@ -78,25 +69,23 @@ executable helloworld-exe
       aeson
     , amqp
     , base >=4.7 && <5
-    , beam-core
-    , beam-migrate
-    , beam-postgres
     , bytestring
     , contravariant
-    , graphql-meta
     , hasql
     , helloworld
+    , morpheus-graphql
     , mtl
     , network
-    , postgresql-simple
     , protolude
     , raw-strings-qq
     , retry
     , scotty
-    , syb
     , text
     , transformers
     , uuid
+    , wai
+    , wai-websockets
+    , warp
     , websockets
   other-modules:
       Paths_helloworld
@@ -113,25 +102,23 @@ test-suite helloworld-test
       aeson
     , amqp
     , base >=4.7 && <5
-    , beam-core
-    , beam-migrate
-    , beam-postgres
     , bytestring
     , contravariant
-    , graphql-meta
     , hasql
     , helloworld
+    , morpheus-graphql
     , mtl
     , network
-    , postgresql-simple
     , protolude
     , raw-strings-qq
     , retry
     , scotty
-    , syb
     , text
     , transformers
     , uuid
+    , wai
+    , wai-websockets
+    , warp
     , websockets
   other-modules:
       Paths_helloworld

@@ -38,20 +38,15 @@ default-extensions:
 
 dependencies:
 - base >= 4.7 && < 5
-- beam-core
-- beam-migrate
-- beam-postgres
-- postgresql-simple
 - aeson 
 - text
+- morpheus-graphql
 - websockets
 - network
 - transformers
 - mtl
 - amqp
 - bytestring
-- syb
-- graphql-meta
 - protolude
 - raw-strings-qq
 - scotty
@@ -59,13 +54,13 @@ dependencies:
 - hasql
 - contravariant
 - retry
+- wai
+- warp
+- wai-websockets 
 
 library:
   source-dirs: 
   - src
-  other-modules:
-  - Modules.Organization.SchemaSQL
-  - Modules.Organization.Schema
   
 executables:
   helloworld-exe:
